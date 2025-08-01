@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoro's Exam Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fas fa-chart-line logo-icon"></i>
+                    <h1 class="logo-text">Zoro's Dashboard</h1>
+                </div>
+                <p class="tagline">Exam Performance Tracker</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="#" class="nav-link" data-page="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="history">
+                        <i class="fas fa-history"></i>
+                        <span>Exam History</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <p class="user-name">Zoro</p>
+                    <p class="user-role">Student</p>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search exams...">
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="icon-btn" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="icon-btn" id="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="primary-btn" id="add-exam-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Exam</span>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Page Content -->
+            <div class="content">
+                <!-- Dashboard Page -->
+                <div class="page active" id="dashboard-page">
+                    <div class="page-header">
+                        <h1 class="page-title">Exam Dashboard</h1>
+                        <p class="page-subtitle">Overview of your exam performance</p>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-title">Total Exams</h3>
+                                <p class="stat-value" id="total-exams">24</p>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>12% from last month</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-title">Average Score</h3>
+                                <p class="stat-value" id="avg-score">87.5%</p>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>5.2% improvement</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-title">Best Score</h3>
+                                <p class="stat-value" id="best-score">98%</p>
+                                <div class="stat-change neutral">
+                                    <i class="fas fa-minus"></i>
+                                    <span>No change</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-title">Last Exam</h3>
+                                <p class="stat-value" id="last-score">92%</p>
+                                <div class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>3% from previous</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts Section -->
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Score Trends</h2>
+                                <div class="card-actions">
+                                    <button class="icon-btn small">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="score-trend-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Performance by Subject</h2>
+                                <div class="card-actions">
+                                    <button class="icon-btn small">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="subject-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Exams -->
+                    <div class="recent-exams">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Exams</h2>
+                            <a href="#" class="link-text">View All</a>
+                        </div>
+                        
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Exam Name</th>
+                                        <th>Date</th>
+                                        <th>Score</th>
+                                        <th>Performance</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-exams-tbody">
+                                    <!-- Table rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- History Page -->
+                <div class="page" id="history-page">
+                    <div class="page-header">
+                        <h1 class="page-title">Exam History</h1>
+                        <p class="page-subtitle">Complete record of all your exams</p>
+                    </div>
+                    
+                    <div class="history-controls">
+                        <div class="filter-container">
+                            <div class="filter-group">
+                                <label>Subject</label>
+                                <select class="filter-select">
+                                    <option>All Subjects</option>
+                                    <option>Mathematics</option>
+                                    <option>Science</option>
+                                    <option>History</option>
+                                    <option>Literature</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>Date Range</label>
+                                <div class="date-range">
+                                    <input type="date" class="date-input">
+                                    <span>to</span>
+                                    <input type="date" class="date-input">
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>Performance</label>
+                                <select class="filter-select">
+                                    <option>All</option>
+                                    <option>Excellent (90%+)</option>
+                                    <option>Good (75-89%)</option>
+                                    <option>Average (60-74%)</option>
+                                    <option>Below Average (<60%)</option>
+                                </select>
+                            </div>
+                            
+                            <button class="primary-btn">
+                                <i class="fas fa-filter"></i>
+                                <span>Apply Filters</span>
+                            </button>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="secondary-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Export</span>
+                            </button>
+                            <button class="secondary-btn">
+                                <i class="fas fa-upload"></i>
+                                <span>Import</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Exam Name</th>
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Score</th>
+                                    <th>Correct</th>
+                                    <th>Incorrect</th>
+                                    <th>Not Attempted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-tbody">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Analytics Page -->
+                <div class="page" id="analytics-page">
+                    <div class="page-header">
+                        <h1 class="page-title">Performance Analytics</h1>
+                        <p class="page-subtitle">Detailed insights into your exam performance</p>
+                    </div>
+                    
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Score Distribution</h2>
+                                <div class="card-actions">
+                                    <button class="icon-btn small">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="score-distribution-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Improvement Over Time</h2>
+                                <div class="card-actions">
+                                    <button class="icon-btn small">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="improvement-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Subject Comparison</h2>
+                                <div class="card-actions">
+                                    <button class="icon-btn small">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="subject-comparison-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Performance Metrics</h2>
+                                <div class="card-actions">
+                                    <button class="icon-btn small">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="metrics-container">
+                                <div class="metric">
+                                    <div class="metric-label">Consistency</div>
+                                    <div class="metric-value">85%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Improvement Rate</div>
+                                    <div class="metric-value">+7.2%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill positive" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Weak Areas</div>
+                                    <div class="metric-value">3</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill negative" style="width: 30%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Study Efficiency</div>
+                                    <div class="metric-value">92%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Page -->
+                <div class="page" id="settings-page">
+                    <div class="page-header">
+                        <h1 class="page-title">Settings</h1>
+                        <p class="page-subtitle">Customize your dashboard experience</p>
+                    </div>
+                    
+                    <div class="settings-container">
+                        <div class="settings-section">
+                            <h2 class="settings-title">General Settings</h2>
+                            <div class="settings-group">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h3 class="setting-name">Dark Mode</h3>
+                                        <p class="setting-desc">Enable dark theme for the dashboard</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="dark-mode-toggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h3 class="setting-name">Notifications</h3>
+                                        <p class="setting-desc">Receive notifications for exam reminders</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h3 class="setting-name">Data Sync</h3>
+                                        <p class="setting-desc">Automatically sync data across devices</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h2 class="settings-title">Data Management</h2>
+                            <div class="settings-group">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h3 class="setting-name">Export Data</h3>
+                                        <p class="setting-desc">Download your exam data as JSON or CSV</p>
+                                    </div>
+                                    <div class="setting-actions">
+                                        <button class="secondary-btn small">JSON</button>
+                                        <button class="secondary-btn small">CSV</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h3 class="setting-name">Import Data</h3>
+                                        <p class="setting-desc">Upload exam data from another source</p>
+                                    </div>
+                                    <div class="setting-actions">
+                                        <label for="import-file" class="secondary-btn small">Choose File</label>
+                                        <input type="file" id="import-file" class="hidden">
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h3 class="setting-name">Clear Data</h3>
+                                        <p class="setting-desc">Remove all exam data from the dashboard</p>
+                                    </div>
+                                    <button class="danger-btn small">Clear All Data</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h2 class="settings-title">About</h2>
+                            <div class="about-info">
+                                <div class="app-version">
+                                    <h3>Zoro's Exam Dashboard</h3>
+                                    <p>Version 2.1.0</p>
+                                </div>
+                                <div class="app-links">
+                                    <a href="#" class="link-text">Documentation</a>
+                                    <a href="#" class="link-text">Support</a>
+                                    <a href="#" class="link-text">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Add Exam Modal -->
+    <div class="modal" id="add-exam-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Exam</h2>
+                <button class="close-modal" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form class="modal-form" id="add-exam-form">
+                <div class="form-group">
+                    <label for="exam-name">Exam Name</label>
+                    <input type="text" id="exam-name" placeholder="Enter exam name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-subject">Subject</label>
+                    <select id="exam-subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="history">History</option>
+                        <option value="literature">Literature</option>
+                        <option value="geography">Geography</option>
+                        <option value="computer-science">Computer Science</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-date">Date</label>
+                    <input type="date" id="exam-date" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="total-questions">Total Questions</label>
+                        <input type="number" id="total-questions" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correct-answers">Correct Answers</label>
+                        <input type="number" id="correct-answers" min="0" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="incorrect-answers">Incorrect Answers</label>
+                        <input type="number" id="incorrect-answers" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="not-attempted">Not Attempted</label>
+                        <input type="number" id="not-attempted" min="0" required>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn" id="cancel-add-exam">Cancel</button>
+                    <button type="submit" class="primary-btn">Add Exam</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Notification Toast -->
+    <div class="toast" id="notification-toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle toast-icon"></i>
+            <div class="toast-message">
+                <h4 class="toast-title">Success</h4>
+                <p class="toast-desc">Your exam has been added successfully!</p>
+            </div>
+        </div>
+        <button class="toast-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
